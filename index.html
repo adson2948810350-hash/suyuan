@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#7a3c1c">
+  <title>劲金乡月 · 沣峪口老油坊 非遗油品溯源系统</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===== 顶部品牌区 ===== -->
+    <header class="hero">
+      <div class="hero-inner">
+        <span class="badge-nonheritage">非物质文化遗产</span>
+        <div class="brand">劲金乡月</div>
+        <div class="mill">沣峪口老油坊</div>
+        <p class="slogan"><em>一物一码溯源存证</em> · 数字守护古法油品</p>
+      </div>
+    </header>
+
+    <!-- ===== 存证状态条 ===== -->
+    <div class="ledger-strip" id="ledgerStrip">
+      <span class="ledger-dot" id="ledgerDot"></span>
+      <div class="txt">
+        <b id="ledgerTitle">区块链存证 · 链校验通过</b>
+        <span id="ledgerSub">全部生产环节已加密上链存档</span>
+      </div>
+      <span id="ledgerFlag" class="ledger-ok">已存证</span>
+    </div>
+
+    <!-- ===== 产品档案 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">🛢️</span>
+        <h2>产品档案</h2>
+        <span class="en">PRODUCT</span>
+      </div>
+      <div id="productInfo"></div>
+      <div class="unique-code">
+        <div class="lbl">产品唯一数字身份码（一物一码）</div>
+        <div class="code" id="uniqueCode">—</div>
+      </div>
+    </section>
+
+    <!-- ===== 溯源全链路时间轴 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">🕯️</span>
+        <h2>古法榨油全流程</h2>
+        <span class="en">TRACE</span>
+      </div>
+      <p class="qr-report" style="margin-bottom:12px">每一道工序均已同步上链存档，点击序号查看存证哈希。</p>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <!-- ===== 原料产地 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">🌾</span>
+        <h2>原料产地</h2>
+        <span class="en">ORIGIN</span>
+      </div>
+      <div class="origin-box">
+        <span class="pin">📍</span>
+        <div>
+          <p class="place" id="originPlace">—</p>
+          <p class="intro" id="originIntro">—</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 质检报告 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">📋</span>
+        <h2>质检报告</h2>
+        <span class="en">QUALITY</span>
+      </div>
+      <div class="qr-report" id="qualityMeta"></div>
+      <div id="qualityTable"></div>
+      <div class="qr-stamp">检验结论：合格</div>
+    </section>
+
+    <!-- ===== 匠人工序 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">🧑‍🌾</span>
+        <h2>匠人工序</h2>
+        <span class="en">CRAFTSMAN</span>
+      </div>
+      <div id="craftsmen"></div>
+    </section>
+
+    <!-- ===== 查询记录 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">🛒</span>
+        <h2>查询记录</h2>
+        <span class="en">QUERY LOG</span>
+      </div>
+      <div class="query-stat">
+        <div class="q-num" id="queryTotal">—</div>
+        <div class="q-lbl">本批次累计被扫码查询（次）</div>
+        <div class="q-since" id="querySince">—</div>
+      </div>
+      <div class="query-live"><span class="live-dot"></span>实时查询动态</div>
+      <div class="query-list" id="queryList"></div>
+      <p class="query-note">每一次扫码查询均实时同步上链存档，销量与溯源双重可验证。</p>
+    </section>
+
+    <!-- ===== 防篡改演示 ===== -->
+    <section class="card demobox fade-up">
+      <div class="card-head">
+        <span class="ic">🔒</span>
+        <h2>不可篡改 · 防伪验证</h2>
+        <span class="en">PROOF</span>
+      </div>
+      <p class="demohint" style="text-align:left">
+        每条存证哈希以上一环节为输入链式生成。试试点下方按钮，篡改某一环节数据，观察整条存证链的变化。
+      </p>
+      <button class="btn-tamper" id="btnTamper">模拟篡改「炒籽蒸坯」温度数据</button>
+      <button class="btn-reset" id="btnReset" style="display:none">恢复原始数据 · 重新校验</button>
+      <p class="demohint" id="demoHint">当前存证链完整，未检测到数据篡改。</p>
+    </section>
+
+    <!-- ===== 扫码溯源 ===== -->
+    <section class="card fade-up">
+      <div class="card-head">
+        <span class="ic">📱</span>
+        <h2>扫码溯源</h2>
+        <span class="en">SCAN</span>
+      </div>
+      <div class="qr-box">
+        <div class="qr-frame">产品专属二维码<br>（部署后生成）</div>
+        <p class="tip">评委扫码即可打开本溯源档案 · <b>每瓶油一个专属码</b></p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="seal">劲金乡月</div>
+      <div>沣峪口老油坊 · 非遗古法油品溯源系统</div>
+      <div>守护乡土非遗 · 数字赋能传承</div>
+    </footer>
+  </div>
+
+  <script src="js/hashchain.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
