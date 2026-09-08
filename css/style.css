@@ -299,12 +299,13 @@ table.inspect .pass { color: var(--green); font-weight: 700; }
 /* ---------- 二维码占位 ---------- */
 .qr-box { text-align: center; }
 .qr-frame {
-  width: 150px; height: 150px; margin: 4px auto 10px;
+  width: 180px; height: 180px; margin: 4px auto 10px;
   border: 1px solid var(--line); border-radius: 12px;
+  background: #fff; padding: 8px;
   display: flex; align-items: center; justify-content: center;
-  background: repeating-conic-gradient(#eee7d6 0 25%, #fffdf6 0 50%) 0 0 / 16px 16px;
-  color: var(--muted); font-size: 12px;
+  box-shadow: 0 2px 8px rgba(90, 60, 30, .08);
 }
+.qr-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .qr-box .tip { font-size: 13px; color: var(--brown-900); }
 .qr-box .tip b { color: var(--red-deep); }
 
