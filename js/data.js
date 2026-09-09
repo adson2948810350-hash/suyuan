@@ -14,7 +14,7 @@ window.TRACE_DATA = {
     uniqueCode: 'FYG-2025-0412-0888',
     spec: '散装 / 桶装',
     produceDate: '2025-04-12',
-    expiry: '12 个月',
+    expiry: '24 个月',
     storage: '阴凉、干燥、避光保存',
     firstQuery: '2025-08-30',
     region: '陕西省 · 西安市 · 长安区沣峪口'
