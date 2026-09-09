@@ -6,7 +6,7 @@
 window.TRACE_DATA = {
   // 产品档案
   product: {
-    brand: '劲金乡月',
+    brand: '油金岁月',
     name: '古法菜籽油',
     mill: '沣峪口百年老油坊',
     category: '食用植物油 · 非遗古法压榨',

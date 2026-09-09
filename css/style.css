@@ -1,5 +1,5 @@
 /* ============================================================
-   劲金乡月 · 沣峪口老油坊 非遗油品溯源系统
+   油金岁月 · 沣峪口老油坊 非遗油品溯源系统
    暖色系 · 中式风格 · 移动端优先
    ============================================================ */
 
@@ -189,7 +189,8 @@ body {
 }
 .tl-gallery { display: flex; gap: 10px; overflow-x: auto; padding: 12px 12px 2px; -webkit-overflow-scrolling: touch; }
 .tl-gallery img {
-  height: 300px; width: auto;
+  width: auto; height: auto;
+  max-height: 320px; max-width: 100%;
   border-radius: 10px; cursor: zoom-in; flex: none;
   background: #efe7d4; box-shadow: 0 2px 8px rgba(0,0,0,0.18);
 }
@@ -295,19 +296,6 @@ table.inspect .pass { color: var(--green); font-weight: 700; }
   border-radius: 12px; font-size: 14px; cursor: pointer;
 }
 .demohint { margin-top: 10px; font-size: 12.5px; color: var(--muted); text-align: center; }
-
-/* ---------- 二维码占位 ---------- */
-.qr-box { text-align: center; }
-.qr-frame {
-  width: 180px; height: 180px; margin: 4px auto 10px;
-  border: 1px solid var(--line); border-radius: 12px;
-  background: #fff; padding: 8px;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 8px rgba(90, 60, 30, .08);
-}
-.qr-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.qr-box .tip { font-size: 13px; color: var(--brown-900); }
-.qr-box .tip b { color: var(--red-deep); }
 
 /* ---------- 页脚 ---------- */
 .footer { margin-top: 24px; text-align: center; font-size: 12px; color: var(--muted); line-height: 2; }
