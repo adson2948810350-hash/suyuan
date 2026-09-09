@@ -122,7 +122,7 @@
       var gallery = r.imgs ? r.imgs.map(function (src) {
         return '<img src="' + esc(src) + '" data-cap="' + esc(r.name) + '" alt="' + esc(r.name) + '" loading="lazy" decoding="async">';
       }).join('') : '';
-      return '<div class="tl-item">' +
+      return '<div class="tl-item" data-no="' + r.no + '">' +
         '<div class="tl-node ' + nodeCls + '">' + r.no + '</div>' +
         '<div class="tl-body ' + bodyCls + '">' +
           '<div class="tl-head" data-idx="' + i + '">' +
@@ -182,7 +182,18 @@
     renderChain();
     document.getElementById('btnTamper').style.display = 'none';
     document.getElementById('btnReset').style.display = 'block';
-    document.getElementById('demoHint').textContent = '已篡改第 2 道工序的工艺参数，整条存证链已断裂，验证失败！';
+    var hint = document.getElementById('demoHint');
+    hint.textContent = '已篡改第 2 道工序的工艺参数，整条存证链已断裂，验证失败！';
+    hint.className = 'demohint alert';
+    // 高亮并滚动到被篡改环节，状态条闪烁
+    var item = document.querySelector('.tl-item[data-no="2"]');
+    if (item) {
+      item.classList.add('flash-bad');
+      setTimeout(function () { item.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 80);
+    }
+    var strip = document.getElementById('ledgerStrip');
+    strip.classList.add('flash-bad');
+    setTimeout(function () { strip.classList.remove('flash-bad'); }, 2400);
   }
 
   function doReset() {
@@ -190,7 +201,9 @@
     rebuild();
     document.getElementById('btnTamper').style.display = 'block';
     document.getElementById('btnReset').style.display = 'none';
-    document.getElementById('demoHint').textContent = '当前存证链完整，未检测到数据篡改。';
+    var hint = document.getElementById('demoHint');
+    hint.textContent = '当前存证链完整，未检测到数据篡改。';
+    hint.className = 'demohint';
   }
 
   /* ---------- 查询记录（持续被查询 / 销售动态） ---------- */
