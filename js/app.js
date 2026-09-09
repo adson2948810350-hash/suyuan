@@ -213,14 +213,30 @@
     '北京市 · 朝阳区', '上海市 · 浦东新区', '成都市 · 锦江区', '兰州市 · 城关区',
     '郑州市 · 金水区', '广州市 · 天河区', '深圳市 · 南山区', '重庆市 · 渝中区'
   ];
-  var queryTotal = DATA.queries.total;
-  var queryItems = DATA.queries.recent.slice(); // 工作副本
+  var queryTotal = DATA.queries.total + 1; // +1 记为本次评委扫码
+  var queryItems = [{ minAgo: 0, place: '西安市 · 长安区', act: '微信扫码验证' }]
+    .concat(DATA.queries.recent.slice()); // 顶部第一条 = 本次扫码
+  var QUERY_TICK = 20; // 每 20 秒模拟一次新的扫码查询
+
+  // 将「分钟前」换算成贴近当下的可读时间：刚刚 / 今天 / 昨天 / M-D
+  function fmtTime(minAgo) {
+    if (minAgo < 1) return '刚刚';
+    var d = new Date(Date.now() - minAgo * 60000);
+    var now = new Date();
+    var hh = ('0' + d.getHours()).slice(-2);
+    var mm = ('0' + d.getMinutes()).slice(-2);
+    var sameDay = d.getFullYear() === now.getFullYear() && d.getMonth() === now.getMonth() && d.getDate() === now.getDate();
+    if (sameDay) return '今天 ' + hh + ':' + mm;
+    var y = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    if (d.getFullYear() === y.getFullYear() && d.getMonth() === y.getMonth() && d.getDate() === y.getDate()) return '昨天 ' + hh + ':' + mm;
+    return (d.getMonth() + 1) + '-' + d.getDate() + ' ' + hh + ':' + mm;
+  }
 
   function renderQueryList() {
     var list = document.getElementById('queryList');
     list.innerHTML = queryItems.slice(0, 8).map(function (it, idx) {
       return '<div class="q-item' + (idx === 0 ? ' new' : '') + '">' +
-        '<div class="q-row"><span class="q-time">' + esc(it.time) + '</span>' +
+        '<div class="q-row"><span class="q-time">' + esc(fmtTime(it.minAgo)) + '</span>' +
         '<span class="q-place">' + esc(it.place) + '</span></div>' +
         '<div class="q-act">' + esc(it.act) + ' · <b class="q-pass">正品 · 存证有效</b></div>' +
       '</div>';
@@ -234,9 +250,11 @@
   }
 
   function pushQuery() {
+    // 已有记录随时间「老化」，新查询置顶为「刚刚」
+    queryItems.forEach(function (it) { it.minAgo += QUERY_TICK / 60; });
     queryTotal += 1;
     queryItems.unshift({
-      time: '刚刚',
+      minAgo: 0,
       place: QUERY_PLACES[Math.floor(Math.random() * QUERY_PLACES.length)],
       act: '微信扫码验证'
     });
@@ -254,7 +272,7 @@
     renderCraftsmen();
     rebuild();
     renderQueries();
-    setInterval(pushQuery, 5000);
+    setInterval(pushQuery, QUERY_TICK * 1000);
     document.getElementById('btnTamper').addEventListener('click', doTamper);
     document.getElementById('btnReset').addEventListener('click', doReset);
   });
