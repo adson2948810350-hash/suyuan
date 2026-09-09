@@ -58,7 +58,7 @@
   function renderQuality() {
     var q = DATA.quality;
     document.getElementById('qualityMeta').innerHTML =
-      '<b>报告编号</b>：' + esc(q.reportNo) + ' · <b>检测机构</b>：' + esc(q.agency) + '<br>' +
+      '<b>报告编号</b>：' + esc(q.reportNo) + '、' + esc(q.reportNo2) + '（共 2 份） · <b>检测机构</b>：' + esc(q.agency) + '<br>' +
       '<b>检测日期</b>：' + esc(q.date) + ' · <b>依据标准</b>：' + esc(q.standard);
 
     var rows = q.items.map(function (it) {
@@ -71,7 +71,7 @@
       '<div class="report-label">报告原件（扫描件，点击查看大图）</div>' +
       '<div class="report-gallery">' +
         q.imgs.map(function (src) {
-          return '<img src="' + esc(src) + '" data-cap="质检报告原件" alt="质检报告">';
+          return '<img src="' + esc(src) + '" data-cap="质检报告原件" alt="质检报告" loading="lazy" decoding="async">';
         }).join('') +
       '</div>';
   }
@@ -98,7 +98,7 @@
     if (allValid) {
       dot.className = 'ledger-dot';
       title.textContent = '区块链存证 · 链校验通过';
-      sub.textContent = chain.length + ' 个环节全部加密上链存档 · 存证链完整';
+      sub.textContent = chain.length + ' 个环节全部哈希加密存档 · 存证链完整';
       flag.className = 'ledger-ok';
       flag.textContent = '已存证';
     } else {
@@ -120,7 +120,7 @@
       var flagCls = v.valid ? 'ok' : 'bad';
       var flagTxt = v.valid ? '✓ 存证有效' : '✗ 已篡改';
       var gallery = r.imgs ? r.imgs.map(function (src) {
-        return '<img src="' + esc(src) + '" data-cap="' + esc(r.name) + '" alt="' + esc(r.name) + '">';
+        return '<img src="' + esc(src) + '" data-cap="' + esc(r.name) + '" alt="' + esc(r.name) + '" loading="lazy" decoding="async">';
       }).join('') : '';
       return '<div class="tl-item">' +
         '<div class="tl-node ' + nodeCls + '">' + r.no + '</div>' +

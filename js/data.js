@@ -77,6 +77,7 @@ window.TRACE_DATA = {
   // 质检报告（结构化摘要 + 报告原件扫描件）
   quality: {
     reportNo: 'S2501208',
+    reportNo2: 'S2501788',
     agency: '西安市产品质量监督检验院',
     date: '2025-04-27',
     standard: 'GB 2716-2018《食品安全国家标准 植物油》',
